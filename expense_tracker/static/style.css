@@ -1,74 +1,86 @@
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
 body {
-    background: linear-gradient(120deg, #4e54c8, #8f94fb);
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background:#0b1220;
+    color:white;
+    font-family:Arial;
 }
 
-.card, .dashboard {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 900px;
+.dashboard {
+    max-width:800px;
+    margin:auto;
+    padding:20px;
 }
 
-.card {
-    max-width: 360px;
-}
-
-h2, h3 {
-    text-align: center;
+.section, .auth-card {
+    background:linear-gradient(180deg,#111827,#0f172a);
+    padding:24px;
+    margin-bottom:20px;
+    border-radius:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.6);
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:8px;
+    border:none;
+    background:#020617;
+    color:white;
+    outline:none;
+}
+
+input:focus {
+    box-shadow:0 0 0 2px rgba(34,197,94,0.6);
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background: #4e54c8;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border-radius:8px;
+    border:none;
+    background:#22c55e;
+    font-weight:bold;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+.auth-container {
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-th {
-    background: #4e54c8;
-    color: white;
+.auth-card {
+    max-width:380px;
+    width:100%;
+    text-align:center;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
+.muted {
+    color:#9ca3af;
+    font-size:14px;
+    margin-bottom:18px;
 }
 
-a {
-    text-decoration: none;
-    color: #4e54c8;
+.switch a {
+    color:#22c55e;
+    text-decoration:none;
+    font-weight:600;
 }
 
-.logout {
-    text-align: center;
-    margin-top: 15px;
+.password-wrap {
+    position:relative;
 }
+
+.password-wrap span {
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+}
+
+.stat {
+    display:flex;
+    justify-content:space-between;
+    }

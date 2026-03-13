@@ -1,56 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/static/style.css">
+<title>AI Expense Tracker</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+margin:0;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+padding:30px;
+}
+
+.section{
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+}
+
+.stat strong{
+font-size:26px;
+}
+
+input,button{
+padding:10px;
+margin-top:8px;
+width:100%;
+border-radius:6px;
+border:none;
+}
+
+button{
+background:#22c55e;
+color:white;
+cursor:pointer;
+}
+</style>
 </head>
+
 <body>
+
 <div class="dashboard">
 
-<h2>AI-Powered Expense Tracker</h2>
+<div class="section">
+<h2>Monthly Overview</h2>
+<canvas id="barChart"></canvas>
+</div>
 
-<h3>Add Income</h3>
-<form method="post" action="/add_income">
-<input name="income" placeholder="Monthly Income (₹)" required>
-<button>Add Income</button>
-</form>
+<div class="section stat">
+<span>Total Income</span>
+<strong>₹{{ income }}</strong>
+</div>
+
+<div class="section stat">
+<span>Total Expense</span>
+<strong>₹{{ expense }}</strong>
+</div>
+
+<div class="section">
+<h3>Expense Distribution</h3>
+<canvas id="donutChart"></canvas>
+</div>
+
+<div class="section">
+<h3>AI Prediction</h3>
+<p>Expected next expense: ₹{{ prediction }}</p>
+<p>{{ feedback }}</p>
+</div>
+
+<div class="section">
 
 <h3>Add Expense</h3>
 <form method="post">
-<input name="amount" placeholder="Amount (₹)" required>
-<input name="description" placeholder="Expense Description" required>
+<input name="amount" placeholder="Expense amount" required>
+<input name="description" placeholder="Category" required>
 <button>Add Expense</button>
 </form>
 
-<h3>Monthly Summary</h3>
-<p><b>Total Income:</b> ₹{{income_total}}</p>
-<p><b>Total Expense:</b> ₹{{monthly_total}}</p>
+<h3>Add Income</h3>
+<form action="/add_income" method="post">
+<input name="income" placeholder="Income amount" required>
+<button>Add Income</button>
+</form>
 
-<h3>AI Feedback</h3>
-<p><b>{{feedback}}</b></p>
-
-<h3>Category-wise Summary</h3>
-<ul>
-{% for c in category_summary %}
-<li>{{c[0]}} : ₹{{c[1]}}</li>
-{% endfor %}
-</ul>
-
-<h3>Expense History</h3>
-<table>
-<tr><th>Amount</th><th>Description</th><th>Category</th></tr>
-{% for e in expenses %}
-<tr>
-<td>₹{{e[0]}}</td>
-<td>{{e[1]}}</td>
-<td>{{e[2]}}</td>
-</tr>
-{% endfor %}
-</table>
-
-<div class="logout">
-<a href="/logout">Logout</a>
 </div>
 
 </div>
+
+<script>
+
+const bar=document.getElementById('barChart');
+
+new Chart(bar,{
+type:'bar',
+data:{
+labels:['Jan','Feb','Mar','Apr','May','Jun'],
+datasets:[
+{
+label:'Income',
+data:{{ income_data }},
+backgroundColor:'#22c55e'
+},
+{
+label:'Expense',
+data:{{ expense_data }},
+backgroundColor:'#facc15'
+}
+]
+}
+});
+
+const donut=document.getElementById('donutChart');
+
+new Chart(donut,{
+type:'doughnut',
+data:{
+labels:{{ categories }},
+datasets:[{
+data:{{ amounts }},
+backgroundColor:[
+'#22c55e',
+'#38bdf8',
+'#f87171',
+'#a78bfa',
+'#facc15'
+]
+}]
+}
+});
+
+</script>
+
 </body>
 </html>
